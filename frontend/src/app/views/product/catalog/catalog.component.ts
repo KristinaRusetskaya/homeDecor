@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {ProductService} from "../../../shared/services/product.service";
 import {ProductType} from "../../../../types/product.type";
 import {CategoryService} from "../../../shared/services/category.service";
@@ -213,6 +213,18 @@ export class CatalogComponent implements OnInit {
       this.router.navigate(['/catalog'], {
         queryParams: this.activeParams
       }).then()
+    } else {
+      this.activeParams.page = 2;
+      this.router.navigate(['/catalog'], {
+        queryParams: this.activeParams
+      }).then()
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  click(event: Event) {
+    if (this.sortingOpen && event.target instanceof HTMLElement) {
+      this.sortingOpen = event.target.className.includes('search-product') || event.target.className.includes('catalog-sorting-head') || event.target.className.includes('catalog-sorting-span');
     }
   }
 }

@@ -102,7 +102,7 @@ ngOnInit() {
 
   navigate() {
     if (this.isLight) {
-      this.router.navigate(['/product/' + this.product.url]).then();
+      this.router.navigate(['/product/' + this.product.url]);
     }
   }
 }
