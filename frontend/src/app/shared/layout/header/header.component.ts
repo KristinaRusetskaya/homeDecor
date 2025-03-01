@@ -55,17 +55,22 @@ export class HeaderComponent implements OnInit {
       this.isLogged = isLoggedIn;
     })
 
+    this.getCart();
+
+    this.cartService.count$
+      .subscribe(count => {
+        this.count = count;
+        this.getCart();
+      })
+  }
+
+  getCart():void {
     this.cartService.getCartCount()
       .subscribe((data: {count: number} | DefaultResponseType) => {
         if ((data as DefaultResponseType).error !== undefined) {
           throw new Error((data as DefaultResponseType).message);
         }
         this.count = (data as {count: number}).count;
-      })
-
-    this.cartService.count$
-      .subscribe(count => {
-        this.count = count;
       })
   }
 
